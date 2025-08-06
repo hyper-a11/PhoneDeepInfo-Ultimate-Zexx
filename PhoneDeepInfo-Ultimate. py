@@ -5,12 +5,10 @@ from phonenumbers import geocoder, carrier, timezone
 import requests
 import webbrowser
 
-# ==== API Keys (optional for better accuracy) ====
-NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Free key from numverify.com
+NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Optional for extra accuracy
 NUMVERIFY_URL = "http://apilayer.net/api/validate"
 IP_API_URL = "http://ip-api.com/json/"
 
-# ==== Phone Lookup ====
 def phone_lookup(phone):
     num = phonenumbers.parse(phone, None)
     print("\n=== Phone Info ===")
@@ -21,7 +19,6 @@ def phone_lookup(phone):
     print(f"Time Zones   : {timezone.time_zones_for_number(num)}")
     print(f"Geo (approx) : {geocoder.description_for_number(num, 'en')}")
 
-# ==== NumVerify Lookup ====
 def numverify_lookup(phone):
     print("\n=== NumVerify Lookup ===")
     params = {"access_key": NUMVERIFY_API_KEY, "number": phone}
@@ -36,7 +33,6 @@ def numverify_lookup(phone):
     except:
         print("NumVerify API not accessible.")
 
-# ==== Social Media Search ====
 def social_media_search(phone):
     print("\n=== Social Media Search ===")
     sites = ["facebook.com", "linkedin.com", "instagram.com", "twitter.com"]
@@ -45,20 +41,17 @@ def social_media_search(phone):
         print(f"[+] Searching {site}...")
         webbrowser.open(url)
 
-# ==== Telegram Search ====
 def telegram_search(phone):
     print("\n=== Telegram Search ===")
     url = f"https://www.google.com/search?q=\"{phone}\" site:t.me OR site:telegram.me"
     print("[+] Searching Telegram profiles...")
     webbrowser.open(url)
 
-# ==== Breach Lookup ====
 def breach_lookup(phone):
     print("\n=== Breach DB Lookup ===")
     webbrowser.open(f"https://scylla.sh/search?q={phone}")
     webbrowser.open(f"https://dehashed.com/search?query={phone}")
 
-# ==== Email / Username OSINT ====
 def email_username_search(email):
     print("\n=== Email / Username OSINT ===")
     sites = ["facebook.com", "linkedin.com", "instagram.com", "github.com", "twitter.com"]
@@ -67,7 +60,6 @@ def email_username_search(email):
         print(f"[+] Searching {site}...")
         webbrowser.open(url)
 
-# ==== IP Lookup ====
 def ip_lookup(ip):
     print("\n=== IP Lookup ===")
     try:
@@ -83,7 +75,6 @@ def ip_lookup(ip):
     except:
         print("Could not fetch IP details.")
 
-# ==== Main ====
 def main():
     if len(sys.argv) < 2:
         print("Usage: python phone_deep_info_ultimate.py +Phone [optional-ip]")
