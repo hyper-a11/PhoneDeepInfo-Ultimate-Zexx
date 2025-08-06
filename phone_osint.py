@@ -5,21 +5,28 @@ from phonenumbers import geocoder, carrier, timezone
 import requests
 import webbrowser
 
-NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Optional
-NUMVERIFY_URL = "http://apilayer.net/api/validate"
+# ==== API Config ====
+NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Add your key from numverify.com
+NUMVERIFY_URL = "https://apilayer.net/api/validate"
 IP_API_URL = "http://ip-api.com/json/"
 
 def phone_lookup(phone):
-    num = phonenumbers.parse(phone, None)
-    print("\n=== Phone Info ===")
-    print(f"Country      : {phonenumbers.region_code_for_number(num)}")
-    print(f"Valid        : {phonenumbers.is_valid_number(num)}")
-    print(f"Possible     : {phonenumbers.is_possible_number(num)}")
-    print(f"Carrier      : {carrier.name_for_number(num, 'en')}")
-    print(f"Time Zones   : {timezone.time_zones_for_number(num)}")
-    print(f"Geo (approx) : {geocoder.description_for_number(num, 'en')}")
+    try:
+        num = phonenumbers.parse(phone, None)
+        print("\n=== Phone Info ===")
+        print(f"Country      : {phonenumbers.region_code_for_number(num)}")
+        print(f"Valid        : {phonenumbers.is_valid_number(num)}")
+        print(f"Possible     : {phonenumbers.is_possible_number(num)}")
+        print(f"Carrier      : {carrier.name_for_number(num, 'en')}")
+        print(f"Time Zones   : {timezone.time_zones_for_number(num)}")
+        print(f"Geo (approx) : {geocoder.description_for_number(num, 'en')}")
+    except Exception as e:
+        print(f"Error parsing phone number: {e}")
 
 def numverify_lookup(phone):
+    if NUMVERIFY_API_KEY == "YOUR_NUMVERIFY_API_KEY":
+        print("\n[!] NumVerify API key not set. Skipping lookup.")
+        return
     print("\n=== NumVerify Lookup ===")
     params = {"access_key": NUMVERIFY_API_KEY, "number": phone}
     try:
@@ -29,41 +36,41 @@ def numverify_lookup(phone):
             print(f"Location : {data.get('location')} ({data.get('country_name')})")
             print(f"Carrier  : {data.get('carrier')}")
         else:
-            print("NumVerify lookup failed or API key missing.")
-    except:
-        print("NumVerify API not accessible.")
+            print("NumVerify lookup failed or invalid key.")
+    except Exception as e:
+        print(f"NumVerify API error: {e}")
 
 def social_media_search(phone):
     print("\n=== Social Media Search ===")
     sites = ["facebook.com", "linkedin.com", "instagram.com", "twitter.com"]
     for site in sites:
         url = f"https://www.google.com/search?q=\"{phone}\" site:{site}"
-        print(f"[+] Searching {site}...")
-        webbrowser.open(url)
+        print(f"[URL] {url}")
+        # webbrowser.open(url)
 
 def telegram_search(phone):
     print("\n=== Telegram Search ===")
     url = f"https://www.google.com/search?q=\"{phone}\" site:t.me OR site:telegram.me"
-    print("[+] Searching Telegram profiles...")
-    webbrowser.open(url)
+    print(f"[URL] {url}")
+    # webbrowser.open(url)
 
 def breach_lookup(phone):
     print("\n=== Breach DB Lookup ===")
-    webbrowser.open(f"https://scylla.sh/search?q={phone}")
-    webbrowser.open(f"https://dehashed.com/search?query={phone}")
+    print(f"[URL] https://scylla.sh/search?q={phone}")
+    print(f"[URL] https://dehashed.com/search?query={phone}")
 
 def email_username_search(email):
     print("\n=== Email / Username OSINT ===")
     sites = ["facebook.com", "linkedin.com", "instagram.com", "github.com", "twitter.com"]
     for site in sites:
         url = f"https://www.google.com/search?q=\"{email}\" site:{site}"
-        print(f"[+] Searching {site}...")
-        webbrowser.open(url)
+        print(f"[URL] {url}")
+        # webbrowser.open(url)
 
 def ip_lookup(ip):
     print("\n=== IP Lookup ===")
     try:
-        r = requests.get(IP_API_URL + ip)
+        r = requests.get(f"{IP_API_URL}{ip}")
         data = r.json()
         if data.get("status") == "success":
             print(f"IP        : {ip}")
@@ -72,8 +79,8 @@ def ip_lookup(ip):
             print(f"Lat / Lon : {data.get('lat')}, {data.get('lon')}")
         else:
             print("IP lookup failed.")
-    except:
-        print("Could not fetch IP details.")
+    except Exception as e:
+        print(f"Could not fetch IP details: {e}")
 
 def main():
     if len(sys.argv) < 2:
