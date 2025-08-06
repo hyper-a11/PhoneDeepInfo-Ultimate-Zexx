@@ -52,4 +52,4 @@ echo "📲 Setting up PhoneDeepInfo-Ultimate-Zexx..."
 pkg update -y && pkg upgrade -y
 pkg install python git -y
 pip install -r requirements.txt
-echo "✅ Setup Complete! Run: python phone_deep_info_ultimate.py +911234567890"
+echo "✅ Setup Complete! Run: python main.py +911234567890"
