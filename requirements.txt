@@ -1,2 +1,2 @@
- phonenumbers
- requests
+ echo "phonenumbers
+requests" > requirements.txt
