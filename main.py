@@ -5,7 +5,7 @@ from phonenumbers import geocoder, carrier, timezone
 import requests
 import webbrowser
 
-NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Optional for extra accuracy
+NUMVERIFY_API_KEY = "YOUR_NUMVERIFY_API_KEY"  # Optional
 NUMVERIFY_URL = "http://apilayer.net/api/validate"
 IP_API_URL = "http://ip-api.com/json/"
 
@@ -77,10 +77,10 @@ def ip_lookup(ip):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python phone_deep_info_ultimate.py +Phone [optional-ip]")
-        sys.exit(1)
+        phone = input("Enter phone number with country code (e.g. +919876543210): ").strip()
+    else:
+        phone = sys.argv[1]
 
-    phone = sys.argv[1]
     phone_lookup(phone)
     numverify_lookup(phone)
     social_media_search(phone)
@@ -94,6 +94,10 @@ def main():
     if len(sys.argv) == 3:
         ip = sys.argv[2]
         ip_lookup(ip)
+    else:
+        ip_input = input("Enter IP address (optional): ").strip()
+        if ip_input:
+            ip_lookup(ip_input)
 
 if __name__ == "__main__":
     main()
