@@ -1,4 +1,4 @@
-# 📞 PhoneDeepInfo Ultimate Zexx
+# 📞 PhoneOSINT-Ultimate/
 
 A Python tool for advanced phone number, IP, and OSINT lookup.  
 Made by **hyper-a11** 🚀  
@@ -38,7 +38,7 @@ Carrier  : Airtel
 
 ## ⚡ Installation
 ```bash
-git clone https://github.com/hyper-a11/PhoneDeepInfo-Ultimate-Zexx.git
+git clone https://github.com/hyper-a11/PhoneOSINT-Ultimate.git
 cd PhoneDeepInfo-Ultimate-Zexx
 pip install -r requirements.txt
 
@@ -52,4 +52,8 @@ echo "📲 Setting up PhoneDeepInfo-Ultimate-Zexx..."
 pkg update -y && pkg upgrade -y
 pkg install python git -y
 pip install -r requirements.txt
-echo "✅ Setup Complete! Run: python main.py +911234567890"
+echo "✅ Setup Complete! Run: python phone_osint.py +919876543210
+
+## include ip address
+
+python phone_osint.py +919876543210 8.8.8.8
