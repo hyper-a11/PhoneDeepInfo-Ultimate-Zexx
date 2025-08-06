@@ -3,6 +3,18 @@
 A Python tool for advanced phone number, IP, and OSINT lookup.  
 Made by **hyper-a11** 🚀  
 
+
+=== Phone Info ===
+Country      : IN
+Valid        : True
+Possible     : True
+Carrier      : Airtel
+Time Zones   : ('Asia/Kolkata',)
+Geo (approx) : India
+
+=== NumVerify Lookup ===
+Location : Maharashtra (India)
+Carrier  : Airtel
 ---
 
 ## 🔥 Features
